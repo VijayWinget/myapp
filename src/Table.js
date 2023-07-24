@@ -6,6 +6,7 @@ const TableHead = () => {
     return (<thead>
         <th>Name</th>
         <th>Job</th>
+        <th>Action</th>
     </thead>)
 }
  // const  employees  =  [
@@ -17,16 +18,19 @@ const TableHead = () => {
 
 
 const TableBody = (data) => {
-const employeess =data.props.allEmployee;
+const employeess =data.allEmployee;
+const removeEmployee = data.removeEmployee;
+
 console.log("table body",data.props);
     return (
         <tbody>
            {
-            employeess.map((data)=>{
+            employeess.map((data,index)=>{
         return(
-            <tr>
+            <tr key={index} >
             <td>{data.name}</td>
             <td>{data.job}</td>
+            <td> <button onClick={()=>removeEmployee(index)}  >Delete</button> </td>
         </tr>
         )
     })
@@ -37,11 +41,11 @@ console.log("table body",data.props);
 
 class Table extends Component {
     render() {
-        const allEmployee = this.props
+        const {allEmployee,removeEmployee} = this.props
         console.log("table: ", allEmployee);
         return (<table>
             <TableHead />
-            <TableBody props={allEmployee}/>
+            <TableBody  removeEmployee={removeEmployee}  allEmployee={allEmployee}/>
         </table>)
     }
 
